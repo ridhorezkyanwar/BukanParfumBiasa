@@ -1,0 +1,18 @@
+Woi Amazon, dengerin ya. Gue mau bikin Landing Page Premium buat brand 'Ren Parfume'. Kita main di React Vite Javascript, styling full pake Tailwind CSS. Tolong kerjain pake standar Senior Dev, jangan kasih kode ecek-ecek.
+1. Konsep Design (Wajib Flat & Clean):
+Mainin warna Earth Tone/Coklat. Background pake #EFEBE9, Primary Brown #5D4037, sama Accent #8D6E63. Jangan pake gradien norak, mainin di whitespace sama font yang elegan. Pakai FontAwesome, haram pake emoji web biasa!
+2. Copywriting (AIDA Technique):
+Bikin narasi yang 'nendang'.
+Attention: Di Hero, bikin headline yang bikin orang ngerasa parfum ini adalah identitas mereka.
+Interest & Desire: Jelasin kenapa Ren Parfume beda, terus tunjukin produknya.
+Action: Semua tombol arahin ke WhatsApp 85772281309 dengan prefill text yang sopan tapi closing-oriented.
+3. Data Fetching (Contentful - No Fetch Manual):
+Jangan pake fetch api biasa, pake library contentful.
+Space ID: apZugth21Bp
+Access Token: ef6bAwUgZKzv85CX5Mqkekb@YZUYIlteuRwEnibg
+Content Type: parfumes
+Map field ini: description, price, category, image, featured.
+4. Struktur Section (Max 6 biar gak kembung):
+Navbar (Simple), Hero, Why Us, Product List (dari CMS), Social Proof (Testimoni), Footer.
+5. Output:
+Kasih gue file App.jsx yang clean, tailwind.config.js buat extend warna coklatnya, sama list library apa aja yang harus gue install di terminal biar langsung jalan. Sikat gess!
