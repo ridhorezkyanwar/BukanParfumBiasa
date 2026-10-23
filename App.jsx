@@ -9,19 +9,29 @@ import {
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
 
-const client = createClient({
-  space: "apZugth21Bp",
-  accessToken: "ef6bAwUgZKzv85CX5Mqkekb@YZUYIlteuRwEnibg",
-});
+const space = import.meta.env.VITE_CONTENTFUL_SPACE_ID;
+const accessToken = import.meta.env.VITE_CONTENTFUL_DELIVERY_TOKEN;
+
+// Vite exposes VITE_* values to the browser. Use only a read-only Content Delivery token.
+const client = space && accessToken
+  ? createClient({ space, accessToken })
+  : null;
 
 function App() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!client) {
+      setLoading(false);
+      return;
+    }
+
+    let cancelled = false;
     client
       .getEntries({ content_type: "parfumes" })
       .then((response) => {
+        if (cancelled) return;
         const items = response.items.map((item) => ({
           id: item.sys.id,
           name: item.fields.name,
@@ -34,7 +44,13 @@ function App() {
         setProducts(items);
         setLoading(false);
       })
-      .catch(() => setLoading(false));
+      .catch(() => {
+        if (!cancelled) setLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const waLink = (text) =>
