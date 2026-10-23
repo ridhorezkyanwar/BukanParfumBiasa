@@ -1,4 +1,15 @@
 # BukanParfumBiasa
+
+<p align="center">
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=18&duration=2600&pause=850&color=58A6FF&center=true&vCenter=true&width=520&lines=Build+%E2%80%A2+Test+%E2%80%A2+Improve" alt="Animated banner: Build, Test, Improve" />
+</p>
+<p align="center">
+  <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=white" alt="React badge" />
+  <img src="https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white" alt="Vite badge" />
+  <img src="https://img.shields.io/badge/Tailwind%20CSS-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind CSS badge" />
+  <img src="https://img.shields.io/badge/Contentful-2478CC?style=flat-square&logo=contentful&logoColor=white" alt="Contentful badge" />
+</p>
+
 👃 BukanParfumBiasa - Ren Parfume Landing Page
 Balik lagi sama project gue gess! Ini adalah Landing Page Eksklusif buat brand Ren Parfume. Targetnya simpel: Bikin calon buyer ngerasa kalau parfum ini bukan sekadar wangi, tapi jati diri.
 Project ini dibangun pake stack modern yang sat-set tapi powerfull. No debat!
