@@ -1,0 +1,41 @@
+name: Temporary lockfile regeneration
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  regenerate-lock:
+    if: github.actor == 'ridhorezkyanwar' && contains(github.event.head_commit.message, '[regenerate-lock]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Set up Node.js
+        uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
+        with:
+          node-version: 24
+          cache: npm
+      - name: Regenerate lockfile without running install scripts
+        run: npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+      - name: Install the regenerated lockfile
+        run: npm ci
+      - name: Audit patched production dependencies
+        run: npm audit --omit=dev --audit-level=moderate
+      - name: Build production frontend
+        run: npm run build
+      - name: Commit lockfile update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package-lock.json
+          if git diff --cached --quiet; then
+            echo "Lockfile already matches the manifest."
+            exit 0
+          fi
+          git commit -m "chore: regenerate lockfile with patched dependencies [skip ci]"
+          git push origin HEAD:main
