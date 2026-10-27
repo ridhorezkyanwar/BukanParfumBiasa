@@ -17,12 +17,45 @@ const client = space && accessToken
   ? createClient({ space, accessToken })
   : null;
 
+const DEMO_PRODUCTS = [
+  {
+    id: "demo-amber",
+    name: "Amber Night (Contoh)",
+    description: "Contoh aroma warm dengan karakter amber dan kayu.",
+    price: 149000,
+    category: "Warm & Woody",
+    image: null,
+    featured: true,
+  },
+  {
+    id: "demo-citrus",
+    name: "Citrus Morning (Contoh)",
+    description: "Contoh aroma segar untuk menemani rutinitas sehari-hari.",
+    price: 129000,
+    category: "Fresh & Citrus",
+    image: null,
+    featured: false,
+  },
+  {
+    id: "demo-floral",
+    name: "Soft Bloom (Contoh)",
+    description: "Contoh aroma floral dengan karakter lembut.",
+    price: 139000,
+    category: "Floral",
+    image: null,
+    featured: false,
+  },
+];
+
 function App() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isDemoData, setIsDemoData] = useState(!client);
 
   useEffect(() => {
     if (!client) {
+      setProducts(DEMO_PRODUCTS);
+      setIsDemoData(true);
       setLoading(false);
       return;
     }
@@ -41,11 +74,21 @@ function App() {
           image: item.fields.image?.fields?.file?.url,
           featured: item.fields.featured,
         }));
-        setProducts(items);
+        if (items.length > 0) {
+          setProducts(items);
+          setIsDemoData(false);
+        } else {
+          setProducts(DEMO_PRODUCTS);
+          setIsDemoData(true);
+        }
         setLoading(false);
       })
       .catch(() => {
-        if (!cancelled) setLoading(false);
+        if (!cancelled) {
+          setProducts(DEMO_PRODUCTS);
+          setIsDemoData(true);
+          setLoading(false);
+        }
       });
 
     return () => {
@@ -114,8 +157,8 @@ function App() {
                 100% Natural Ingredients
               </h4>
               <p className="text-gray-600">
-                Dibuat dari bahan alami pilihan tanpa campuran kimia berbahaya.
-                Aman untuk kulit sensitif sekalipun.
+                Pilih aroma dengan memperhatikan preferensi, kenyamanan, dan
+                informasi bahan yang diberikan untuk setiap produk.
               </p>
             </div>
             <div className="text-center">
@@ -125,10 +168,10 @@ function App() {
                   className="text-3xl text-accent"
                 />
               </div>
-              <h4 className="text-xl font-bold mb-3">Long-Lasting Scent</h4>
+              <h4 className="text-xl font-bold mb-3">Aroma untuk Berbagai Momen</h4>
               <p className="text-gray-600">
-                Ketahanan wangi hingga 12 jam. Sekali semprot, aroma tetap
-                melekat sepanjang hari.
+                Temukan karakter aroma yang sesuai dengan aktivitas, suasana,
+                dan selera Anda.
               </p>
             </div>
             <div className="text-center">
@@ -159,6 +202,17 @@ function App() {
             mewakili karakter Anda.
           </p>
 
+          {isDemoData && (
+            <p
+              className="max-w-3xl mx-auto -mt-8 mb-10 rounded-xl border border-amber-200 bg-amber-50 px-5 py-4 text-center text-sm text-amber-900"
+              role="status"
+            >
+              Mode demo: nama produk dan harga berikut adalah data contoh,
+              bukan katalog atau penawaran penjualan aktif. Hubungkan Contentful
+              dengan Content Delivery token read-only untuk menampilkan katalog asli.
+            </p>
+          )}
+
           {loading ? (
             <div className="text-center text-gray-500">Memuat produk...</div>
           ) : (
@@ -168,12 +222,19 @@ function App() {
                   key={product.id}
                   className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition"
                 >
-                  {product.image && (
+                  {product.image ? (
                     <img
-                      src={`https:${product.image}`}
+                      src={product.image.startsWith("//") ? `https:${product.image}` : product.image}
                       alt={product.name}
                       className="w-full h-64 object-cover"
                     />
+                  ) : (
+                    <div
+                      className="flex h-64 items-center justify-center bg-gradient-to-br from-rose-100 via-stone-100 to-amber-50"
+                      aria-label="Ilustrasi contoh produk parfum"
+                    >
+                      <FontAwesomeIcon icon={faSprayCan} className="text-5xl text-primary/60" />
+                    </div>
                   )}
                   <div className="p-6">
                     {product.featured && (
