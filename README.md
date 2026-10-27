@@ -1,5 +1,7 @@
 # BukanParfumBiasa — Ren Parfume
 
+<p><a href="https://ren-parfume-demo.vercel.app/"><img src="https://img.shields.io/badge/Live_Demo-Vercel-000000?style=for-the-badge&logo=vercel" alt="Live demo" /></a></p>
+
 <p>
   <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black" alt="React" />
   <img src="https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white" alt="Vite" />
@@ -62,4 +64,4 @@ npm run preview
 
 ## Batasan
 
-Ini adalah landing page frontend. README ini tidak mengklaim adanya proses checkout, pembayaran, inventori real-time, ataupun pengujian otomatis yang telah lulus.
+Ini adalah landing page frontend. Ketika Contentful belum dikonfigurasi, demo publik memakai produk dan harga ilustratif yang diberi label data contoh; jangan memperlakukannya sebagai penawaran jual yang aktif. README ini tidak mengklaim adanya proses checkout, pembayaran, inventori real-time, ataupun pengujian otomatis yang telah lulus.
